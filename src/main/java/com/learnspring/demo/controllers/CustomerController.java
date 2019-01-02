@@ -1,7 +1,10 @@
 package com.learnspring.demo.controllers;
 
 import com.learnspring.demo.models.Customer;
+import com.learnspring.demo.models.FinancialDetails;
 import com.learnspring.demo.repository.CustomerRepository;
+import com.learnspring.demo.repository.FinancialDetailsRepository;
+import com.learnspring.demo.services.PremiumCalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,12 @@ public class CustomerController {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    FinancialDetailsRepository financialDetailsRepository;
+
+    @Autowired
+    PremiumCalculatorService premiumCalculatorService;
 
     //Get all customers
     @RequestMapping(method = RequestMethod.GET, path = "/customer")
@@ -27,8 +36,13 @@ public class CustomerController {
 
     //Create new customers
     @RequestMapping(method = RequestMethod.POST, path = "/customer")
-    public Customer createCustomer(@RequestBody Customer customer){
-        return customerRepository.save(customer);
+    public String createCustomer(@RequestBody Customer customer){
+        FinancialDetails financialDetails = new FinancialDetails();
+        FinancialDetails calculatedFinancialDetails = premiumCalculatorService.calculatePremiumAmount(customer, financialDetails);
+        calculatedFinancialDetails.setCustomerName(customer.getName());
+        financialDetailsRepository.save(calculatedFinancialDetails);
+        customerRepository.save(customer);
+        return "Saved";
     }
 
     //Update old customers od a specific id to new values

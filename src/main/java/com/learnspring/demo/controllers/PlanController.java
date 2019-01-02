@@ -11,8 +11,15 @@ import java.util.stream.Collectors;
 @RestController
 public class PlanController {
 
+//    private PlanRepository planRepository;
+//
+//    public PlanController(PlanRepository planRepository) {
+//        this.planRepository = planRepository;
+//    }
+
     @Autowired
     PlanRepository planRepository;
+
 
     @RequestMapping(path = "/api/plans/", method = RequestMethod.GET)
     public List<Plan> getAllPlans() {
