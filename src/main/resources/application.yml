@@ -1,7 +1,11 @@
-server:
-  port: 8000
-
 spring:
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /pari
+  profiles:
+    active: prod
+
+logging:
+  level:
+    ROOT: INFO
