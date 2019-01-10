@@ -1,0 +1,35 @@
+import com.learnspring.demo.DTO.UnderwritingSection;
+import com.learnspring.demo.DTO.Eligibility;
+
+global com.learnspring.demo.DTO.Eligibility eligibility;
+dialect  "mvel"
+
+rule "Find if Eligible  - if Buyer chooses more than 1 claim, then Set Buyer as - Not Eligible"
+    when
+        u:UnderwritingSection(numberOfClaims > 1);
+    then
+       	eligibility.setStatus(false);
+end
+
+
+rule "Find if Eligible  - if Buyer has a seasonal business, then Set Buyer as - Not Eligible"
+    when
+        u:UnderwritingSection(isSeasonal == "YES");
+    then
+       	eligibility.setStatus(false);
+end
+
+
+rule "Find if Eligible  - if Buyer chooses is not a doughnut shop, then Set Buyer as - Not Eligible"
+    when
+        u:UnderwritingSection(isDoughnut == "NO");
+    then
+       	eligibility.setStatus(false);
+end
+
+rule "Find if Eligible  - if Buyer provides delivery service, then Set Buyer as - Not Eligible"
+    when
+        u:UnderwritingSection(isDeliveryProvider == "YES");
+    then
+       	eligibility.setStatus(false);
+end

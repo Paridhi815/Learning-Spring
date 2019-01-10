@@ -1,0 +1,35 @@
+import java.util.*;
+import com.learnspring.demo.models.Customer;
+import com.learnspring.demo.models.FinancialDetails;
+
+global  com.learnspring.demo.models.FinancialDetails financialDetails;
+dialect  "mvel"
+
+rule "Calculate Premium Amount - Scenario 1"
+    when
+        c:Customer(gender == "M" && smokingStatus == "Y");
+    then
+       	financialDetails.setPremiumAmount(1000l);
+       	financialDetails.setPlanCode("A");
+end
+rule "Calculate Premium Amount - Scenario 2"
+    when
+        c:Customer(gender == "M" && smokingStatus == "N");
+    then
+       	financialDetails.setPremiumAmount(1500l);
+       	financialDetails.setPlanCode("B");
+end
+rule "Calculate Premium Amount - Scenario 3"
+    when
+        c:Customer(gender == "F" && smokingStatus == "Y");
+    then
+       	financialDetails.setPremiumAmount(2000l);
+       	financialDetails.setPlanCode("C");
+end
+rule "Calculate Premium Amount - Scenario 4"
+    when
+        c:Customer(gender == "F" && smokingStatus == "N");
+    then
+       	financialDetails.setPremiumAmount(2500l);
+       	financialDetails.setPlanCode("D");
+end

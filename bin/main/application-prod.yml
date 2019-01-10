@@ -1,0 +1,13 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springbootdb
+    username: paridhimohindra
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
